@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>browsercomp</title>
+    <script src="https://cjrtnc.leaningtech.com/4.0/loader.js"></script>
+    <link rel="icon" href="browsercomp.png" type="image/png">
+</head>
+<body style="background: #212529">
+<script>
+  (async function () {
+    function execCb(cmdPath, argsArray) {
+      if (cmdPath === "xdg-open") {
+        window.open(argsArray, "_blank");
+      }
+    }
+    const javaVersion = 8; // allowed 8 or 11
+    await cheerpjInit({version: javaVersion, execCallback: execCb, clipboardMode: "system"}, document.body);
+
+    const bcompMinWidth = 860;
+    const bcompMinHeight = 600
+    cheerpjCreateDisplay(Math.max(bcompMinWidth, window.innerWidth - 16), Math.max(bcompMinHeight, window.innerHeight - 16));
+
+    // "/app/" is specific for CheerpJ
+    const githubPagesRoot = "/app/browsercomp"
+    const bcompJar = "bcomp-extended-1.5.0-beta.jar" // https://github.com/AppLoidx/bcomp-extended
+    await cheerpjRunJar(`${githubPagesRoot}/${bcompJar}`)
+  })();
+</script>
+</body>
+</html>
